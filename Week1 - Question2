@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class STEPClass1 {
+
+    static void checkTypingAccuracy(String original, String typed) {
+        String[] originalChars = original.split("");
+        String[] typedChars = typed.split("");
+
+        int matched = 0;
+        int firstMismatch = -1;
+
+        for (int i = 0; i < originalChars.length; i++) {
+            if (originalChars[i].equals(typedChars[i])) {
+                matched++;
+            } else if (firstMismatch == -1) {
+                firstMismatch = i;
+            }
+        }
+
+        double accuracy = (double) matched / originalChars.length * 100;
+
+        System.out.println("Matched: " + matched + "/" + originalChars.length);
+        System.out.printf("Accuracy: %.2f%%", accuracy);
+
+        if (firstMismatch == -1) {
+            System.out.println(" | No Mismatches");
+        } else {
+            System.out.println(" | First Mismatch at position "
+                    + (firstMismatch + 1)
+                    + " ('" + originalChars[firstMismatch]
+                    + "' vs '" + typedChars[firstMismatch] + "')");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String original = "hello world";
+
+        System.out.println("Original text: " + original);
+        System.out.print("Type the text: ");
+        String typed = sc.nextLine();
+
+        checkTypingAccuracy(original, typed);
+    }
+}
